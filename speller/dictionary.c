@@ -7,7 +7,7 @@
 #include "dictionary.h"
 
 // Represents number of buckets in a hash table
-#define N 26
+#define NUM_CONTAINERS 26
 
 // Represents a node in a hash table
 typedef struct node
@@ -18,7 +18,7 @@ typedef struct node
 node;
 
 // Represents a hash table
-node *hashtable[N];
+node *hashtable[NUM_CONTAINERS];
 
 // Hashes word to a number between 0 and 25, inclusive, based on its first letter
 unsigned int hash(const char *word)
@@ -30,7 +30,7 @@ unsigned int hash(const char *word)
 bool load(const char *dictionary)
 {
     // Initialize hash table
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < NUM_CONTAINERS; i++)
     {
         hashtable[i] = NULL;
     }
@@ -49,7 +49,7 @@ bool load(const char *dictionary)
     // Insert words into hash table
     while (fscanf(file, "%s", word) != EOF)
     {
-        // TODO TESTING
+        // TODO
     }
 
     // Close dictionary
