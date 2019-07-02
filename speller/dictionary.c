@@ -50,10 +50,20 @@ bool load(const char *dictionary)
     char word[LENGTH + 1];
 
     // Insert words into hash table
+    // takes the dictionary file, looks for a string, and puts that string into a variable called word
+    // will execute this loop until the end of the dictionary file is reached
     while (fscanf(file, "%s", word) != EOF)
     {
-        node *createdNode1 = malloc(sizeof(node));
-        node *createdNode2 = malloc(sizeof(node));
+        // for every word that we scan we need to allocate some space in memory for it
+        node *createdNode = malloc(sizeof(node));
+        
+        // whenever we create a node we need to check to see if malloc succeeded. 
+        // if we run out of memory, malloc will return NULL and we need to check for that and return false
+        if (createdNode == NULL)
+        {
+            unload();
+            return false;
+        }
         
         // strcpy inserts the "word" char into the word varaible by accesing it through arrow notation and setting the node value
         strcpy(createdNode1->word, word);
@@ -61,8 +71,12 @@ bool load(const char *dictionary)
         // sends "word" to the hash function to hash to a number between o and 25 inclusive
         int hash_value = hash(word);
         
-        
-        
+        // if there are no nodes currently in the hash table we need to create one
+        if (NUM_CONTAINERS[hash_value] = NULL)
+        {
+            createdNode = NUM_CONTAINERS[hash_value];
+        }
+        createdNode = createdNode->next;
         
     }
 
