@@ -3,6 +3,8 @@
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "dictionary.h"
 
@@ -20,7 +22,7 @@ node;
 // Represents a hash table
 node *hashtable[NUM_CONTAINERS];
 
-// creates a variable intialized to 0 that will keep track of thw nuber of words in dictionary
+// creates a variable intialized to 0 that will keep track of the number of words in dictionary
 int wordCount = 0;
 
 // Hashes word to a number between 0 and 25, inclusive, based on its first letter
@@ -66,18 +68,23 @@ bool load(const char *dictionary)
         }
         
         // strcpy inserts the "word" char into the word varaible by accesing it through arrow notation and setting the node value
-        strcpy(createdNode1->word, word);
+        strcpy(createdNode->word, word);
         
         // sends "word" to the hash function to hash to a number between o and 25 inclusive
         int hash_value = hash(word);
         
         // if there are no nodes currently in the hash table we need to create one
-        if (NUM_CONTAINERS[hash_value] = NULL)
+        if (hashtable[hash_value] == NULL)
         {
-            createdNode = NUM_CONTAINERS[hash_value];
+            // set the Node (hash_value) to the current createdNode
+            hashtable[hash_value] = createdNode;
+            createdNode->next = NULL;
         }
-        createdNode = createdNode->next;
+        createdNode->next = hashtable[hash_value];
+        hashtable[hash_value] = createdNode;
         
+        wordCount++;
+        printf("%i", wordCount);
     }
 
     // Close dictionary
