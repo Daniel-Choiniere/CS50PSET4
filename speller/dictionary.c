@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 
 #include "dictionary.h"
 
@@ -58,34 +59,39 @@ bool load(const char *dictionary)
     {
         // for every word that we scan we need to allocate some space in memory for it
         node *createdNode = malloc(sizeof(node));
-        
-        // whenever we create a node we need to check to see if malloc succeeded. 
+
+        // whenever we create a node we need to check to see if malloc succeeded.
         // if we run out of memory, malloc will return NULL and we need to check for that and return false
         if (createdNode == NULL)
         {
             unload();
             return false;
         }
-        
+
         // strcpy inserts the "word" char into the word varaible by accesing it through arrow notation and setting the node value
         strcpy(createdNode->word, word);
-        
+
         // sends "word" to the hash function to hash to a number between o and 25 inclusive
         int hash_value = hash(word);
-        
+
         // if there are no nodes currently in the hash table we need to create one
         if (hashtable[hash_value] == NULL)
         {
             // set the Node (hash_value) to the current createdNode
             hashtable[hash_value] = createdNode;
+            // set the next node to NULL
             createdNode->next = NULL;
         }
-        createdNode->next = hashtable[hash_value];
-        hashtable[hash_value] = createdNode;
-        
+        else
+        {
+            // if we already have nodes in the hash table, then we create the "next" node
+            createdNode->next = hashtable[hash_value];
+            hashtable[hash_value] = createdNode;
+        }
+        // increase the wordCOunt variable by one
         wordCount++;
-        printf("%i", wordCount);
     }
+
 
     // Close dictionary
     fclose(file);
@@ -93,6 +99,7 @@ bool load(const char *dictionary)
     // Indicate success
     return true;
 }
+// printf("%i", wordCount);
 
 // Returns number of words in dictionary if loaded else 0 if not yet loaded
 unsigned int size(void)
@@ -104,7 +111,23 @@ unsigned int size(void)
 // Returns true if word is in dictionary else false
 bool check(const char *word)
 {
-    // TODO
+    node *trav = hashtable[hash(word)];
+    while (trav != NULL)
+    {
+        if (strcasecmp(word, trav->word) == 0)
+        {
+            // strcasecmp takes two words and converts to all lowercase and then compares them to see if they a re a perfect match (contained in dictionary);
+            // If the words do match then 0 is returned and we can return TRUE
+            printf("its here!\n");
+            return true;
+
+        }
+        else
+        {
+            // sets the traveler to the next node in the tree so we can check it once loop restarts
+            trav = trav->next;
+        }
+    }
     return false;
 }
 
@@ -112,5 +135,5 @@ bool check(const char *word)
 bool unload(void)
 {
     // TODO
-    return false;
+    return true;
 }
