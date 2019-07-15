@@ -118,7 +118,7 @@ bool check(const char *word)
         {
             // strcasecmp takes two words and converts to all lowercase and then compares them to see if they a re a perfect match (contained in dictionary);
             // If the words do match then 0 is returned and we can return TRUE
-            printf("its here! --- > %s\n", trav->word);
+            // printf("its here! --- > %s\n", trav->word);
             return true;
 
         }
@@ -135,6 +135,22 @@ bool check(const char *word)
 // Unloads dictionary from memory, returning true if successful else false
 bool unload(void)
 {
-    // TODO
+    // for every node in the hashtable
+    for (int nodeNum = 0; nodeNum < NUM_CONTAINERS; nodeNum++)
+    {
+        // pointer to travel through each node and free it, starting with the "0 place" node
+        node *trav = hashtable[nodeNum];
+        while (trav != NULL)
+        {
+            // make a temporary pointer node
+            node *temp = trav;
+
+            // now that we have created out temp pointer we can "travel" onto the next node
+            trav = trav->next;
+
+            // free the current temp node
+            free(temp);
+        }
+    }
     return true;
 }
