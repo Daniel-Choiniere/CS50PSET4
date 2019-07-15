@@ -88,7 +88,7 @@ bool load(const char *dictionary)
             createdNode->next = hashtable[hash_value];
             hashtable[hash_value] = createdNode;
         }
-        // increase the wordCOunt variable by one
+        // increase the wordCount variable by one
         wordCount++;
     }
 
@@ -96,16 +96,14 @@ bool load(const char *dictionary)
     // Close dictionary
     fclose(file);
 
-    // Indicate success
+    // Indicates success
     return true;
 }
-// printf("%i", wordCount);
 
 // Returns number of words in dictionary if loaded else 0 if not yet loaded
 unsigned int size(void)
 {
-    // TODO
-    return 0;
+    return wordCount;
 }
 
 // Returns true if word is in dictionary else false
@@ -151,6 +149,7 @@ bool unload(void)
             // free the current temp node
             free(temp);
         }
+        free(trav);
     }
     return true;
 }
