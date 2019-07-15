@@ -118,7 +118,7 @@ bool check(const char *word)
         {
             // strcasecmp takes two words and converts to all lowercase and then compares them to see if they a re a perfect match (contained in dictionary);
             // If the words do match then 0 is returned and we can return TRUE
-            printf("its here!\n");
+            printf("its here! --- > %s\n", trav->word);
             return true;
 
         }
@@ -128,6 +128,7 @@ bool check(const char *word)
             trav = trav->next;
         }
     }
+    // if there are no nodes at all, or we have looped and checked through all nodes and found nothing we just return False
     return false;
 }
 
