@@ -96,6 +96,7 @@ bool load(const char *dictionary)
     // Close dictionary
     fclose(file);
 
+
     // Indicates success
     return true;
 }
