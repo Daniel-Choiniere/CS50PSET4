@@ -150,7 +150,7 @@ bool unload(void)
             // free the current temp node
             free(temp);
         }
-        free(trav);
+
     }
     return true;
 }
